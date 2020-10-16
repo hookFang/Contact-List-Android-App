@@ -1,4 +1,4 @@
-package com.example.contact_list_application_assignment_1
+package com.example.contact_list_application_assignment
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.example.contact_list_application_assignment_1
+package com.example.contact_list_application_assignment
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.contact_list_application_assignment_1", appContext.packageName)
+        assertEquals("com.example.contact_list_application_assignment", appContext.packageName)
     }
 }
