@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">Contact-List-Application-Assignment</string>
+    <string name="app_name">HashMaps Contact List</string>
+    <string name="loginHeadingTextView">HashMaps Login</string>
+    <string name="signUpHeadingTextView">HashMaps Sign Up</string>
+    <string name="userNameHint">Username</string>
+    <string name="passwordHint">Password</string>
+    <string name="loginButton">Login</string>
+    <string name="forgotPasswordButton">Forgot Password?</string>
+    <string name="signUpButtonLoginPage">Sign Up</string>
+    <string name="emailHint">E-mail</string>
+    <string name="signUpButtonText">Sign Up</string>
 </resources>

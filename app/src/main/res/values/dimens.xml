@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="loginHeadingSize">24sp</dimen>
+    <dimen name="signUpHeadingSize">24sp</dimen>
+    <dimen name="loginHeadingMarginBottom">40dp</dimen>
+    <dimen name="signUpHeadingMarginBottom">40dp</dimen>
+    <dimen name="passwordMarginTop">20dp</dimen>
+    <dimen name="loginButtonMarginTop">20dp</dimen>
+    <dimen name="usernameWidth">300sp</dimen>
+    <dimen name="passwordWidth">300sp</dimen>
+    <dimen name="loginButtonWidth">300sp</dimen>
+    <dimen name="horizontalLinearLayoutWidth">300sp</dimen>
+    <dimen name="horizontalLinearMarginTop">10dp</dimen>
+    <dimen name="emailWidth">300sp</dimen>
+    <dimen name="signUpButtonWidth">300sp</dimen>
+    <dimen name="usernameMarginTop">20dp</dimen>
+</resources>

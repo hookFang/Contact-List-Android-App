@@ -1,18 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="#1587F8"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/loginHeadingTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="@dimen/loginHeadingMarginBottom"
+        android:fontFamily="@font/aldrich"
+        android:text="@string/loginHeadingTextView"
+        android:textColor="#000000"
+        android:textSize="@dimen/loginHeadingSize"
+        android:textStyle="bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/userName"
+        android:layout_width="@dimen/usernameWidth"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:fontFamily="@font/aldrich"
+        android:hint="@string/userNameHint"
+        android:inputType="text"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="@dimen/passwordWidth"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/passwordMarginTop"
+        android:ems="10"
+        android:fontFamily="@font/aldrich"
+        android:hint="@string/passwordHint"
+        android:inputType="textPassword"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="@dimen/loginButtonWidth"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/loginButtonMarginTop"
+        android:fontFamily="@font/aldrich"
+        android:text="@string/loginButton"
+        android:textColor="#0C0C0C"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="@dimen/horizontalLinearLayoutWidth"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/horizontalLinearMarginTop"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/signUpButtonFromLogin"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:background="#00000000"
+            android:backgroundTint="#00000000"
+            android:fontFamily="@font/aldrich"
+            android:gravity="start"
+            android:text="@string/signUpButtonLoginPage"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/forgotPasswordButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:background="#00000000"
+            android:backgroundTint="#00000000"
+            android:fontFamily="@font/aldrich"
+            android:gravity="end"
+            android:text="@string/forgotPasswordButton"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</LinearLayout>
