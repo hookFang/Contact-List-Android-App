@@ -1,76 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="#1587F8"
-    android:gravity="center"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
+    android:fillViewport="true"
     tools:context=".SignUp">
 
-    <TextView
-        android:id="@+id/signUpHeadingTextView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/signUpHeadingMarginBottom"
-        android:fontFamily="@font/aldrich"
-        android:text="@string/signUpHeadingTextView"
-        android:textColor="#000000"
-        android:textSize="@dimen/signUpHeadingSize"
-        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1587F8"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/signUpEmail"
-        android:layout_width="@dimen/emailWidth"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:fontFamily="@font/aldrich"
-        android:hint="@string/emailHint"
-        android:inputType="text"
-        android:textAlignment="center" />
+        <TextView
+            android:id="@+id/signUpHeadingTextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/signUpHeadingMarginBottom"
+            android:fontFamily="@font/aldrich"
+            android:text="@string/signUpHeadingTextView"
+            android:textColor="#000000"
+            android:textSize="@dimen/signUpHeadingSize"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/signUpUsername"
-        android:layout_width="@dimen/usernameWidth"
-        android:layout_marginTop="@dimen/usernameMarginTop"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:fontFamily="@font/aldrich"
-        android:hint="@string/userNameHint"
-        android:inputType="text"
-        android:textAlignment="center" />
+        <EditText
+            android:id="@+id/signUpFirstName"
+            android:layout_width="@dimen/nameWidth"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/aldrich"
+            android:hint="@string/firstNameHint"
+            android:inputType="text"
+            android:textAlignment="center" />
 
-    <EditText
-        android:id="@+id/signUpPassword"
-        android:layout_width="@dimen/passwordWidth"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/passwordMarginTop"
-        android:ems="10"
-        android:fontFamily="@font/aldrich"
-        android:hint="@string/passwordHint"
-        android:inputType="textPassword"
-        android:textAlignment="center" />
+        <EditText
+            android:id="@+id/signUpLastName"
+            android:layout_width="@dimen/nameWidth"
+            android:layout_marginTop="@dimen/lastNameMarginTop"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/aldrich"
+            android:hint="@string/lastNameHint"
+            android:inputType="text"
+            android:textAlignment="center" />
 
-    <EditText
-        android:id="@+id/signUpConfirmPassword"
-        android:layout_width="@dimen/passwordWidth"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/passwordMarginTop"
-        android:ems="10"
-        android:fontFamily="@font/aldrich"
-        android:hint="@string/passwordHint"
-        android:inputType="textPassword"
-        android:textAlignment="center" />
+        <EditText
+            android:id="@+id/signUpEmail"
+            android:layout_width="@dimen/emailWidth"
+            android:layout_marginTop="@dimen/signUpEmailMarginTop"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/aldrich"
+            android:hint="@string/emailHint"
+            android:inputType="text"
+            android:textAlignment="center" />
 
-    <Button
-        android:id="@+id/signUpButton"
-        android:layout_width="@dimen/signUpButtonWidth"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/loginButtonMarginTop"
-        android:fontFamily="@font/aldrich"
-        android:text="@string/signUpButtonText"
-        android:textColor="#0C0C0C"
-        android:textStyle="bold" />
-</LinearLayout>
+        <EditText
+            android:id="@+id/signUpUsername"
+            android:layout_width="@dimen/usernameWidth"
+            android:layout_marginTop="@dimen/usernameMarginTop"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/aldrich"
+            android:hint="@string/userNameHint"
+            android:inputType="text"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/signUpPassword"
+            android:layout_width="@dimen/passwordWidth"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/passwordMarginTop"
+            android:ems="10"
+            android:fontFamily="@font/aldrich"
+            android:hint="@string/passwordHint"
+            android:inputType="textPassword"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/signUpConfirmPassword"
+            android:layout_width="@dimen/passwordWidth"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/passwordMarginTop"
+            android:ems="10"
+            android:fontFamily="@font/aldrich"
+            android:hint="@string/confirmPasswordHint"
+            android:inputType="textPassword"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/signUpButton"
+            android:layout_width="@dimen/signUpButtonWidth"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/loginButtonMarginTop"
+            android:fontFamily="@font/aldrich"
+            android:text="@string/signUpButtonText"
+            android:textColor="#0C0C0C"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</ScrollView>

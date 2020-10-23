@@ -1,5 +1,7 @@
 package com.example.contact_list_application_assignment
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -10,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
@@ -25,14 +28,20 @@ class SignUp : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
 
         //Action bar to get the back button
+        supportActionBar?.title = ""
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#1587F8")))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //Sign Up button onclick -  saves new users to database
         signUpButton.setOnClickListener {
-            if(signUpEmail.text.isNotEmpty() && signUpUsername.text.isNotEmpty() && signUpPassword.text.isNotEmpty() && signUpConfirmPassword.text.isNotEmpty() && (signUpPassword.text.toString().trim() == signUpConfirmPassword.text.toString().trim())) {
-                //A user variable is created and password is hashed using BCrypt.
-                //val user = User(signUpEmail.text.toString().trim(), signUpUsername.text.toString().trim(),  BCrypt.withDefaults().hashToString(12, signUpPassword.text.toString().trim().toCharArray()))
+            val email = signUpEmail.text.toString().trim()
+            val password = signUpPassword.text.toString().trim()
+            val confirmPassword = signUpConfirmPassword.text.toString().trim()
+            val firstName = signUpFirstName.text.toString().trim()
+            val lastName = signUpLastName.text.toString().trim()
+            val userName = signUpUsername.text.toString().trim()
 
+            if(checkValues(email, userName, password, confirmPassword, firstName, lastName)) {
                 //Code referred from https://firebase.google.com/docs/auth/android/password-auth#create_a_password-based_account
                 auth.createUserWithEmailAndPassword(signUpEmail.text.toString().trim(), signUpPassword.text.toString().trim())
                     .addOnCompleteListener() { task: Task<AuthResult> ->
@@ -40,6 +49,12 @@ class SignUp : AppCompatActivity() {
                             FirebaseAuth.getInstance().currentUser?.sendEmailVerification()
                             //Show confirmation and clear inputs
                             Toast.makeText(this, "A confirmation e-mail has been send.", Toast.LENGTH_LONG).show()
+
+                            //A user variable is created and added to the db collection
+                            val user = User(auth.currentUser?.uid, signUpEmail.text.toString().trim(), signUpFirstName.text.toString().trim(), signUpLastName.text.toString().trim(), signUpUsername.text.toString().trim())
+                            val db = FirebaseFirestore.getInstance().collection("users")
+                            db.document(user.id!!).set(user)
+
                             finish()
                         } else {
                             try {
@@ -63,5 +78,10 @@ class SignUp : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return true
+    }
+
+    //Function to check if all values are filled in TODO- will be implementing features to check if the same username exists
+    private fun checkValues(email: String, userName:String, password: String, confirmPassword: String, firstName: String, lastName: String): Boolean {
+        return (email.isNotEmpty() && userName.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty() && (confirmPassword == password) && firstName.isNotEmpty() && lastName.isNotEmpty())
     }
 }

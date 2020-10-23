@@ -9,4 +9,7 @@
     <string name="signUpButtonLoginPage">Sign Up</string>
     <string name="emailHint">E-mail</string>
     <string name="signUpButtonText">Sign Up</string>
+    <string name="confirmPasswordHint">Confirm Password</string>
+    <string name="firstNameHint">First Name</string>
+    <string name="lastNameHint">Last Name</string>
 </resources>

@@ -4,23 +4,32 @@ class User {
     //Properties
     var id: String? = null
     var email: String? = null
+    var firstName: String? = null
+    var lastName: String? = null
     var userName: String? = null
-    var password: String? = null
 
     //Constructors
     constructor()
-
-    constructor(id: String?, email: String?, userName: String?, password: String?) {
+    constructor(
+        id: String?,
+        email: String?,
+        firstName: String?,
+        lastName: String?,
+        userName: String?
+    ) {
         this.id = id
         this.email = email
+        this.firstName = firstName
+        this.lastName = lastName
         this.userName = userName
-        this.password = password
     }
 
-    constructor(email: String?, userName: String?, password: String?) {
+    constructor(email: String?, firstName: String?, lastName: String?, userName: String?) {
         this.email = email
+        this.firstName = firstName
+        this.lastName = lastName
         this.userName = userName
-        this.password = password
     }
+
 
 }
