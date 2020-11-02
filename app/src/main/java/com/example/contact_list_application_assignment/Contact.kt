@@ -7,7 +7,6 @@ class Contact {
     var contactName: String? = null
     var contactAddress: String? = null
     var contactEmail: String? = null
-    var workPhone: String? = null
 
     //Constructors
     constructor()
@@ -16,14 +15,12 @@ class Contact {
         phoneNumber: String?,
         contactName: String?,
         contactAddress: String?,
-        contactEmail: String?,
-        workPhone: String?
+        contactEmail: String?
     ) {
         this.phoneNumber = phoneNumber
         this.contactName = contactName
         this.contactAddress = contactAddress
         this.contactEmail = contactEmail
-        this.workPhone = workPhone
     }
 
 }
