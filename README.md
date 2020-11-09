@@ -11,6 +11,7 @@ The users can also add photos to there contacts.
 
 All the data will be saved to the users firebase(Database used) account. A sign page will be available for users to sign up for a free account.
 
+### Coroutine 
 We are using Coroutine instead of multi-threading to save data into Firestore once user login.
 Learn more about Coroutine at https://developer.android.com/kotlin/coroutines
 
