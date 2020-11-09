@@ -7,6 +7,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 open class ReadContactsHelper : AppCompatActivity() {
 
+    //Connect to firebase
+    private val db = FirebaseFirestore.getInstance().collection("contacts")
+    val contactSet = mutableSetOf<Contact>()
     //Helper to get Email
     private fun getEmail(id: String, applicationContext: Context): String? {
         //Code referred from https://stackoverflow.com/questions/15243205/cant-get-the-email-address-from-contactscontract
@@ -74,7 +77,7 @@ open class ReadContactsHelper : AppCompatActivity() {
         return contactAddress
     }
 
-    fun readContacts() {
+    fun readContactsAndUploadData() {
         // the Content resolver here reads the contacts from your phone.
         val cursor = contentResolver.query(
             ContactsContract.Contacts.CONTENT_URI,
@@ -89,10 +92,8 @@ open class ReadContactsHelper : AppCompatActivity() {
             while (cursor.moveToNext()) {
                 //ID is used to retrieve  the phone number and Email
                 val id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
-
                 val contactName =
                     cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-
                 val phoneNumber =
                     cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))
                         .toInt()
@@ -102,17 +103,14 @@ open class ReadContactsHelper : AppCompatActivity() {
                 val phoneNumValue = getPhoneNumber(id, applicationContext, phoneNumber)
                 val address = getAddress(id, applicationContext)
 
-                println(email)
-                println(phoneNumValue)
-                println(address)
-
-                val contact = Contact(phoneNumValue, contactName, address, email)
-
-                //Connect to firebase
-                val db = FirebaseFirestore.getInstance().collection("contacts")
+                if(phoneNumValue != null) {
+                    contactSet.add(Contact(phoneNumValue, contactName, address, email))
+                }
+            }
+        }
+        for(contact in contactSet) {
                 contact.id = db.document().id
                 db.document(contact.id!!).set(contact)
-            }
         }
     }
 }

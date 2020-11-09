@@ -12,4 +12,14 @@
     <string name="confirmPasswordHint">Confirm Password</string>
     <string name="firstNameHint">First Name</string>
     <string name="lastNameHint">Last Name</string>
+    <string name="appNameMainPage">HashMaps Contact List</string>
+    <string name="addContactName">Name *</string>
+    <string name="addContactPhone">Phone *</string>
+    <string name="addContactAddress">Address</string>
+    <string name="addContactEmail">E-mail</string>
+    <string name="addContactWorkPhone">Work Phone</string>
+    <string name="addContact">Add Contact</string>
+    <string name="addContactCancel">Cancel</string>
+    <string name="addContactSave">Save</string>
+
 </resources>

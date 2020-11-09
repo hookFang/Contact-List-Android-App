@@ -17,5 +17,17 @@
     <dimen name="usernameMarginTop">20dp</dimen>
     <dimen name="lastNameMarginTop">20dp</dimen>
     <dimen name="signUpEmailMarginTop">20dp</dimen>
+    <dimen name="contactNameWidth">0dp</dimen>
+    <dimen name="contactMarginBottom">10dp</dimen>
+    <dimen name="callIconMarginRight">20dp</dimen>
+    <dimen name="messageIconMarginRight">10dp</dimen>
+    <dimen name="contactNameMarginLeft">20dp</dimen>
+    <dimen name="appNameMainPageMarginTop">30dp</dimen>
+    <dimen name="addContactTextViewMarginTop">20dp</dimen>
+    <dimen name="addContactNameMarginTop">30dp</dimen>
+    <dimen name="addContactSpaceBetweenTextView">20dp</dimen>
+    <dimen name="defaultFabImageSize">30dp</dimen>
+    <dimen name="defaultMarginRightFabButton">20dp</dimen>
+    <dimen name="contactRecyclerMarginTop">20dp</dimen>
 
 </resources>

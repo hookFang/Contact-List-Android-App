@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1587F8"
+    tools:context=".AddContact">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/addContactTextViewMarginTop"
+        android:fontFamily="@font/aldrich"
+        android:text="@string/addContact"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addContactPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:scaleType="center"
+        android:tint="#FFFFFF"
+        app:backgroundTint="@color/photoTint"
+        app:fabCustomSize="140dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:maxImageSize="120dp"
+        app:srcCompat="@drawable/ic_baseline_person_24" />
+
+    <EditText
+        android:id="@+id/addContactName"
+        android:layout_width="@dimen/nameWidth"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/addContactNameMarginTop"
+        android:ems="10"
+        android:fontFamily="@font/aldrich"
+        android:hint="@string/addContactName"
+        android:inputType="text"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addContactPhoto" />
+
+    <EditText
+        android:id="@+id/addContactPhone"
+        android:layout_width="@dimen/nameWidth"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/addContactSpaceBetweenTextView"
+        android:ems="10"
+        android:fontFamily="@font/aldrich"
+        android:hint="@string/addContactPhone"
+        android:inputType="phone"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addContactName" />
+
+    <EditText
+        android:id="@+id/addContactAddress"
+        android:layout_width="@dimen/nameWidth"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/addContactSpaceBetweenTextView"
+        android:ems="10"
+        android:fontFamily="@font/aldrich"
+        android:hint="@string/addContactAddress"
+        android:inputType="text"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addContactPhone" />
+
+    <EditText
+        android:id="@+id/addContactEmail"
+        android:layout_width="@dimen/nameWidth"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/addContactSpaceBetweenTextView"
+        android:ems="10"
+        android:fontFamily="@font/aldrich"
+        android:hint="@string/addContactEmail"
+        android:inputType="text"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addContactAddress" />
+
+    <EditText
+        android:id="@+id/addContactWorkPhone"
+        android:layout_width="@dimen/nameWidth"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/addContactSpaceBetweenTextView"
+        android:ems="10"
+        android:fontFamily="@font/aldrich"
+        android:hint="@string/addContactWorkPhone"
+        android:inputType="text"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addContactEmail" />
+
+    <Button
+        android:id="@+id/addContactSave"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/aldrich"
+        android:text="@string/addContactSave"
+        android:textColor="#0C0C0C"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addContactWorkPhone" />
+
+    <Button
+        android:id="@+id/addContactCancel"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="50dp"
+        android:fontFamily="@font/aldrich"
+        android:text="@string/addContactCancel"
+        android:textColor="#0C0C0C"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addContactWorkPhone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

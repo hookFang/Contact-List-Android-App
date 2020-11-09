@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Window
 import android.widget.Toast
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -27,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         //Sign Up button onclick listener from login page
         signUpButtonFromLogin.setOnClickListener {
             //When the button is pressed the Sign Up activity is opened
-            val i = Intent(applicationContext, SignUp::class.java)
+            val i = Intent(applicationContext, SignUpActivity::class.java)
             startActivity(i)
         }
 
@@ -55,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                                     ).show()
                                 }
                                 else {
-                                    val i = Intent(applicationContext, MainPage::class.java)
+                                    val i = Intent(applicationContext, MainPageActivity::class.java)
                                     startActivity(i)
                                 }
                             }

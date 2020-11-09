@@ -17,9 +17,9 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 
-class SignUp : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
 
-    var TAG = SignUp::class.qualifiedName
+    var TAG = SignUpActivity::class.qualifiedName
     //Code referred from https://firebase.google.com/docs/auth/android/password-auth#create_a_password-based_account
     var auth: FirebaseAuth = Firebase.auth
 
