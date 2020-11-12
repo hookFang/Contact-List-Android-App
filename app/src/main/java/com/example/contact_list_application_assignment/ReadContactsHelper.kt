@@ -1,15 +1,22 @@
 package com.example.contact_list_application_assignment
 
+import android.content.ContentUris
 import android.content.Context
+import android.net.Uri
 import android.provider.ContactsContract
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+
 
 open class ReadContactsHelper : AppCompatActivity() {
 
     //Connect to firebase
-    private val db = FirebaseFirestore.getInstance().collection("contacts")
+    private val db = FirebaseAuth.getInstance().currentUser?.uid?.let { FirebaseFirestore.getInstance().collection("users").document(it).collection("contacts") }
     val contactSet = mutableSetOf<Contact>()
+
     //Helper to get Email
     private fun getEmail(id: String, applicationContext: Context): String? {
         //Code referred from https://stackoverflow.com/questions/15243205/cant-get-the-email-address-from-contactscontract
@@ -33,8 +40,13 @@ open class ReadContactsHelper : AppCompatActivity() {
     }
 
     //Helper to get Phone Number
-    private fun getPhoneNumber(id: String, applicationContext: Context, phoneNumber: Int): String? {
+    private fun getPhoneNumber(
+        id: String,
+        applicationContext: Context,
+        phoneNumber: Int
+    ): Pair<String?, String?> {
         var phoneNumValue: String? = null
+        var workPhoneNumValue: String? = null
         if (phoneNumber > 0) {
             val cursorPhone = applicationContext.contentResolver.query(
                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
@@ -46,15 +58,23 @@ open class ReadContactsHelper : AppCompatActivity() {
 
             if (cursorPhone != null && cursorPhone.count > 0) {
                 while (cursorPhone.moveToNext()) {
-                    phoneNumValue = cursorPhone.getString(
-                        cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
-                    )
+                    if (cursorPhone.getInt(cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE)) == ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE) {
+                        phoneNumValue = cursorPhone.getString(
+                            cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+                        )
+                    }
+                    if (cursorPhone.getInt(cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE)) == ContactsContract.CommonDataKinds.Phone.TYPE_WORK) {
+                        workPhoneNumValue = cursorPhone.getString(
+                            cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+                        )
+                    }
                 }
             }
         }
-        return phoneNumValue
+        return Pair(phoneNumValue, workPhoneNumValue)
     }
 
+    //Get address function
     private fun getAddress(id: String, applicationContext: Context): String? {
         var contactAddress: String? = null
         val addressCursor = applicationContext.contentResolver.query(
@@ -75,6 +95,11 @@ open class ReadContactsHelper : AppCompatActivity() {
             }
         }
         return contactAddress
+    }
+
+    private fun getContactPhotoUri(id: String): Uri {
+        val contactUri: Uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, id.toLong())
+        return Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.DISPLAY_PHOTO)
     }
 
     fun readContactsAndUploadData() {
@@ -100,17 +125,18 @@ open class ReadContactsHelper : AppCompatActivity() {
 
                 //We use functions in our helper class which is inherited to get the phoneNumber , email, address
                 val email = getEmail(id, applicationContext)
-                val phoneNumValue = getPhoneNumber(id, applicationContext, phoneNumber)
+                val (phoneNumValue, workPhoneNumber) = getPhoneNumber(id, applicationContext, phoneNumber)
                 val address = getAddress(id, applicationContext)
+                val contactPhotoUri = getContactPhotoUri(id).toString()
 
-                if(phoneNumValue != null) {
-                    contactSet.add(Contact(phoneNumValue, contactName, address, email))
+                if (phoneNumValue != null || workPhoneNumber != null) {
+                    contactSet.add(Contact(phoneNumValue, contactName, address, email, workPhoneNumber, contactPhotoUri))
                 }
             }
         }
-        for(contact in contactSet) {
-                contact.id = db.document().id
-                db.document(contact.id!!).set(contact)
+        for (contact in contactSet) {
+            contact.id = db?.document()?.id
+            db?.document(contact.id!!)?.set(contact)
         }
     }
 }

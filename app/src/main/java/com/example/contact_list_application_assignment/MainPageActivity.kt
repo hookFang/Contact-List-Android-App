@@ -3,6 +3,9 @@ package com.example.contact_list_application_assignment
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.AssetFileDescriptor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -14,6 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.android.material.internal.ContextUtils.getActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main_page.*
 import kotlinx.android.synthetic.main.contact_item.view.*
@@ -25,7 +30,7 @@ class MainPageActivity : ReadContactsHelper() {
 
     private var TAG = MainPageActivity::class.qualifiedName
     private val PERMISSIONS_REQUEST_READ_CONTACTS = 100
-    private val db = FirebaseFirestore.getInstance().collection("contacts")
+    private val db = FirebaseAuth.getInstance().currentUser?.uid?.let { FirebaseFirestore.getInstance().collection("users").document(it).collection("contacts") }
     private var adapter: MainPageActivity.ContactAdapter? = null
 
 
@@ -35,37 +40,41 @@ class MainPageActivity : ReadContactsHelper() {
 
         GlobalScope.launch {
             // Code referred from - https://medium.com/@manuaravindpta/fetching-contacts-from-device-using-kotlin-6c6d3e76574f
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && (checkSelfPermission(
                     Manifest.permission.READ_CONTACTS
-                ) != PackageManager.PERMISSION_GRANTED  && checkSelfPermission(
+                ) != PackageManager.PERMISSION_GRANTED  || checkSelfPermission(
                     Manifest.permission.CALL_PHONE
-                ) != PackageManager.PERMISSION_GRANTED
+                ) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(
+                    Manifest.permission.WRITE_CONTACTS
+                ) != PackageManager.PERMISSION_GRANTED)
             ) {
                 //So if we don't have permission we request for permissions from the user, this will execute the overridden onRequestPermissionsResult
                 requestPermissions(
-                    arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE),
+                    arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE, Manifest.permission.WRITE_CONTACTS),
                     PERMISSIONS_REQUEST_READ_CONTACTS
                 )
                 //callback onRequestPermissionsResult
             } else {
                 //If we have permission we run our function directly
-                //readContactsAndUploadData()
+                readContactsAndUploadData()
             }
         }
 
         //Set RecyclerView to use linear layout
         contactRecyclerView.layoutManager = LinearLayoutManager(this)
-        val query = db.whereNotEqualTo("phoneNumber", null)
+        val query = db?.whereNotEqualTo("phoneNumber", null)
 
         println("Query is $query")
 
         //Get all the contacts in phone
         //pass query results to the recycler adapter
-        val options = FirestoreRecyclerOptions.Builder<Contact>().setQuery(
-            query,
-            Contact::class.java
-        ).build()
-        adapter = ContactAdapter(options)
+        val options = query?.let {
+            FirestoreRecyclerOptions.Builder<Contact>().setQuery(
+                it,
+                Contact::class.java
+            ).build()
+        }
+        adapter = options?.let { ContactAdapter(it) }
         contactRecyclerView.adapter = adapter
 
         //onclick listener for the + icon to add contact
@@ -81,7 +90,7 @@ class MainPageActivity : ReadContactsHelper() {
     ) {
         if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //readContactsAndUploadData()
+                readContactsAndUploadData()
             } else {
                 Toast.makeText(
                     this,
