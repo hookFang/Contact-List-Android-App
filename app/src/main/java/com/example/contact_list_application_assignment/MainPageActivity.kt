@@ -24,11 +24,11 @@ import kotlinx.android.synthetic.main.activity_main_page.*
 import kotlinx.android.synthetic.main.contact_item.view.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.io.Serializable
 
 
 class MainPageActivity : ReadContactsHelper() {
 
-    private var TAG = MainPageActivity::class.qualifiedName
     private val PERMISSIONS_REQUEST_READ_CONTACTS = 100
     private val db = FirebaseAuth.getInstance().currentUser?.uid?.let { FirebaseFirestore.getInstance().collection("users").document(it).collection("contacts") }
     private var adapter: MainPageActivity.ContactAdapter? = null
@@ -121,7 +121,7 @@ class MainPageActivity : ReadContactsHelper() {
     private inner class ContactAdapter internal constructor(options: FirestoreRecyclerOptions<Contact>) :
         FirestoreRecyclerAdapter<Contact, MainPageActivity.ContactViewHolder>(options) {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
-            //inflate the item_resturant.xml
+            //inflate the contact_item.xml
             val view = LayoutInflater.from(parent.context).inflate(
                 R.layout.contact_item,
                 parent,
@@ -131,7 +131,7 @@ class MainPageActivity : ReadContactsHelper() {
         }
 
         override fun onBindViewHolder(holder: ContactViewHolder, position: Int, model: Contact) {
-            // populate teh restaurant name and rating bar matching textview and rating bar
+            // populate the data in the page
             holder.itemView.contactName.text = model.contactName
 
             //On click listener to make a call
@@ -141,10 +141,26 @@ class MainPageActivity : ReadContactsHelper() {
                 startActivity(callIntent)
             }
 
+            //On click listener to send a message
             holder.itemView.messageFab.setOnClickListener {
                 val messageIntent = Intent(Intent.ACTION_VIEW)
                 messageIntent.data = Uri.parse("sms:" + model.phoneNumber)
                 startActivity(messageIntent)
+            }
+
+            //On click listener on the contact item
+            holder.itemView.setOnClickListener {
+                //We pass in all the contact values to the contact Details activity
+                val intent = Intent(applicationContext, ContactDetails::class.java)
+                intent.putExtra("contactName", model.contactName)
+                intent.putExtra("contactPhotoURI", model.contactPhotoURI)
+                intent.putExtra("contactWorkPhone", model.contactWorkPhone)
+                intent.putExtra("contactAddress", model.contactAddress)
+                intent.putExtra("contactPhone", model.phoneNumber)
+                intent.putExtra("contactEmail", model.contactEmail)
+                intent.putExtra("rawContactID", model.rawContactID)
+                intent.putExtra("contactFirebaseID", model.id)
+                startActivity(intent)
             }
         }
     }

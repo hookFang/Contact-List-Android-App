@@ -29,5 +29,10 @@
     <dimen name="defaultFabImageSize">30dp</dimen>
     <dimen name="defaultMarginRightFabButton">20dp</dimen>
     <dimen name="contactRecyclerMarginTop">20dp</dimen>
+    <dimen name="contactNameDetailsHeight">50sp</dimen>
+    <dimen name="commonHeightTextViewContactDetails">50sp</dimen>
+    <dimen name="contactDetailPhoneMarginTop">50sp</dimen>
+    <dimen name="ContactDetailSpaceBetweenTextView">40sp</dimen>
+
 
 </resources>

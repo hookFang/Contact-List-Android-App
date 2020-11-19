@@ -21,5 +21,9 @@
     <string name="addContact">Add Contact</string>
     <string name="addContactCancel">Cancel</string>
     <string name="addContactSave">Save</string>
+    <string name="itemNameContactPhone">Call</string>
+    <string name="itemNameContactMessage">Message</string>
+    <string name="itemContactEdit">Edit</string>
+    <string name="itemContactDelete">Delete</string>
 
 </resources>

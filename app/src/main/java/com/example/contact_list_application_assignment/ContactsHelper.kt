@@ -12,10 +12,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.io.ByteArrayOutputStream
 
-open class AddContactsHelper : AppCompatActivity() {
+
+open class ContactsHelper : AppCompatActivity() {
     //Connect to firebase
     private val db = FirebaseAuth.getInstance().currentUser?.uid?.let { FirebaseFirestore.getInstance().collection("users").document(it).collection("contacts") }
-    private val TAG = AddContactsHelper::class.qualifiedName
+    private val TAG = ContactsHelper::class.qualifiedName
 
     fun addContact(
         contactName: String,
@@ -139,14 +140,34 @@ open class AddContactsHelper : AppCompatActivity() {
             val photoLocation: Uri =  Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.DISPLAY_PHOTO)
 
             //Adding the contact info to firebase
-            val newContact = Contact(contactPhone, contactName, contactAddress, contactEmail, contactWorkPhone, photoLocation.toString())
+            val newContact = Contact(contactPhone, contactName, contactAddress, contactEmail, contactWorkPhone, photoLocation.toString(), contactID)
             newContact.id = db?.document()?.id
             db?.document(newContact.id!!)?.set(newContact)
             return true;
         } catch (e: Exception) {
             Log.e(TAG, e.message!!)
         }
-        //Retrun false if adding contact failed
+        //Return false if adding contact failed
         return false;
+    }
+
+    //Code refereed from
+    fun deleteContact(contactID: String): Boolean {
+        val operations = ArrayList<ContentProviderOperation>()
+        operations.add(
+            ContentProviderOperation
+                .newDelete(ContactsContract.RawContacts.CONTENT_URI)
+                .withSelection(
+                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID
+                            + " = ?", arrayOf(contactID)
+                )
+                .build())
+        try {
+            contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
+        } catch (e: Exception) {
+            Log.e(TAG, e.message!!)
+            return false
+        }
+        return true
     }
 }

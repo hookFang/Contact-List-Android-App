@@ -11,7 +11,7 @@ import androidx.annotation.RequiresApi
 import kotlinx.android.synthetic.main.activity_add_contact.*
 
 
-class AddContact : AddContactsHelper() {
+class AddContact : ContactsHelper() {
     var bitmapImage: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

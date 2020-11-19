@@ -130,7 +130,7 @@ open class ReadContactsHelper : AppCompatActivity() {
                 val contactPhotoUri = getContactPhotoUri(id).toString()
 
                 if (phoneNumValue != null || workPhoneNumber != null) {
-                    contactSet.add(Contact(phoneNumValue, contactName, address, email, workPhoneNumber, contactPhotoUri))
+                    contactSet.add(Contact(phoneNumValue, contactName, address, email, workPhoneNumber, contactPhotoUri, id))
                 }
             }
         }

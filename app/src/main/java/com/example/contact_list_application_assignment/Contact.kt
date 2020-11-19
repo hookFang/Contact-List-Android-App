@@ -11,6 +11,7 @@ class Contact {
     var contactEmail: String? = null
     var contactWorkPhone: String? = null
     var contactPhotoURI: String? = null
+    var rawContactID: String? = null
 
     //Constructors
     constructor()
@@ -20,7 +21,8 @@ class Contact {
         contactAddress: String?,
         contactEmail: String?,
         contactWorkPhone: String?,
-        contactPhotoURI: String?
+        contactPhotoURI: String?,
+        rawContactID: String?
     ) {
         this.phoneNumber = phoneNumber
         this.contactName = contactName
@@ -28,7 +30,7 @@ class Contact {
         this.contactEmail = contactEmail
         this.contactWorkPhone = contactWorkPhone
         this.contactPhotoURI = contactPhotoURI
+        this.rawContactID = rawContactID
     }
-
 
 }
