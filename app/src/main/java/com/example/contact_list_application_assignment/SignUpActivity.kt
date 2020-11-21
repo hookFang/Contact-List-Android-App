@@ -15,6 +15,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.toolbar_contact.*
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -28,10 +29,9 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
 
         //Action bar to get the back button
-        supportActionBar?.title = ""
-        supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#1587F8")))
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+        supportActionBar?.title = "Sign Up"
         //Sign Up button onclick -  saves new users to database
         signUpButton.setOnClickListener {
             val email = signUpEmail.text.toString().trim()

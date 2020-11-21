@@ -33,6 +33,10 @@
     <dimen name="commonHeightTextViewContactDetails">50sp</dimen>
     <dimen name="contactDetailPhoneMarginTop">50sp</dimen>
     <dimen name="ContactDetailSpaceBetweenTextView">40sp</dimen>
+    <dimen name="resetPasswordEmailWidth">300sp</dimen>
+    <dimen name="resetPasswordHeading">100dp</dimen>
+    <dimen name="resetPasswordSendButtonWidth">300sp</dimen>
+    <dimen name="resetPasswordSendButtonMarginTop">40sp</dimen>
 
 
 </resources>

@@ -19,11 +19,12 @@
     <string name="addContactEmail">E-mail</string>
     <string name="addContactWorkPhone">Work Phone</string>
     <string name="addContact">Add Contact</string>
-    <string name="addContactCancel">Cancel</string>
     <string name="addContactSave">Save</string>
     <string name="itemNameContactPhone">Call</string>
     <string name="itemNameContactMessage">Message</string>
     <string name="itemContactEdit">Edit</string>
     <string name="itemContactDelete">Delete</string>
+    <string name="resetPasswordTextView">Reset Password</string>
+    <string name="ResetPassword">Reset Password</string>
 
 </resources>

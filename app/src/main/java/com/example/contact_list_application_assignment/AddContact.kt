@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import kotlinx.android.synthetic.main.activity_add_contact.*
+import kotlinx.android.synthetic.main.toolbar_contact.*
 
 
 class AddContact : ContactsHelper() {
@@ -18,6 +19,10 @@ class AddContact : ContactsHelper() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_contact)
 
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Add New Contact"
+
         //Photo selector
         addContactPhoto.setOnClickListener {
             val intent = Intent()
@@ -26,12 +31,7 @@ class AddContact : ContactsHelper() {
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1001)
         }
 
-        //Cancel button takes the user back to the contact list
-        addContactCancel.setOnClickListener {
-            finish()
-        }
-
-        //Save button OnClick listener
+         //Save button OnClick listener
         addContactSave.setOnClickListener {
             val contactName = addContactName.text.toString()
             val contactPhone = addContactPhone.text.toString()
@@ -41,14 +41,12 @@ class AddContact : ContactsHelper() {
 
             //Adds contact to the Firestore DB
             if (contactName.isNotEmpty() || contactPhone.isNotEmpty()) {
-                bitmapImage?.let { it1 ->
-                    if (!addContact(contactName, contactPhone, contactAddress, contactWorkPhone, contactEmail, it1)) {
+                    if (!addContact(contactName, contactPhone, contactAddress, contactWorkPhone, contactEmail, bitmapImage)) {
                         Toast.makeText(this, "Contact was not saved", Toast.LENGTH_LONG).show()
                     } else {
                         Toast.makeText(this, "Contact was saved", Toast.LENGTH_LONG).show()
                         finish()
                     }
-                }
             } else {
                 Toast.makeText(this, "Please make sure the Name and Phone number and filled in", Toast.LENGTH_LONG).show()
             }
@@ -64,5 +62,11 @@ class AddContact : ContactsHelper() {
             bitmapImage = selectedImage?.let { ImageDecoder.createSource(this.contentResolver, it) }?.let { ImageDecoder.decodeBitmap(it) }
             print(bitmapImage)
         }
+    }
+
+    //This is the action for back button
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 }

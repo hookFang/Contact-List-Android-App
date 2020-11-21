@@ -24,7 +24,7 @@ open class ContactsHelper : AppCompatActivity() {
         contactAddress: String,
         contactWorkPhone: String,
         contactEmail: String,
-        bitMapImage: Bitmap
+        bitMapImage: Bitmap?
     ): Boolean {
         /*Code referred from https://stackoverflow.com/questions/48686429/save-photo-contact-programmatically-android
         https://stackoverflow.com/questions/9096186/how-to-add-contacts-programmatically-in-android

@@ -30,6 +30,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(i)
         }
 
+        //Reset Button Onclick listener
+        forgotPasswordButton.setOnClickListener {
+            //This opens the reset password activity
+            val i = Intent(applicationContext, ResetPassword::class.java)
+            startActivity(i)
+        }
+
         //Login Button onClick listener verifies the login details
         loginButton.setOnClickListener {
             val username = userName.text.toString().trim()
