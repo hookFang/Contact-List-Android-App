@@ -11,12 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.io.ByteArrayOutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 open class ContactsHelper : AppCompatActivity() {
     //Connect to firebase
     private val db = FirebaseAuth.getInstance().currentUser?.uid?.let { FirebaseFirestore.getInstance().collection("users").document(it).collection("contacts") }
-    private val TAG = ContactsHelper::class.qualifiedName
 
     fun addContact(
         contactName: String,
@@ -140,12 +141,12 @@ open class ContactsHelper : AppCompatActivity() {
             val photoLocation: Uri =  Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.DISPLAY_PHOTO)
 
             //Adding the contact info to firebase
-            val newContact = Contact(contactPhone, contactName, contactAddress, contactEmail, contactWorkPhone, photoLocation.toString(), contactID)
+            val newContact = Contact(contactPhone, contactName.toLowerCase(Locale.ROOT).capitalize(), contactAddress, contactEmail, contactWorkPhone, photoLocation.toString(), contactID)
             newContact.id = db?.document()?.id
             db?.document(newContact.id!!)?.set(newContact)
             return true;
         } catch (e: Exception) {
-            Log.e(TAG, e.message!!)
+            Log.e("TAG", e.message!!)
         }
         //Return false if adding contact failed
         return false;
@@ -165,7 +166,7 @@ open class ContactsHelper : AppCompatActivity() {
         try {
             contentResolver.applyBatch(ContactsContract.AUTHORITY, operations)
         } catch (e: Exception) {
-            Log.e(TAG, e.message!!)
+            Log.e("TAG", e.message!!)
             return false
         }
         return true

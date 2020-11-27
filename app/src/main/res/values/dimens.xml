@@ -23,12 +23,12 @@
     <dimen name="messageIconMarginRight">10dp</dimen>
     <dimen name="contactNameMarginLeft">20dp</dimen>
     <dimen name="appNameMainPageMarginTop">30dp</dimen>
-    <dimen name="addContactTextViewMarginTop">20dp</dimen>
+    <dimen name="addContactTextViewMarginTop">10dp</dimen>
     <dimen name="addContactNameMarginTop">30dp</dimen>
     <dimen name="addContactSpaceBetweenTextView">20dp</dimen>
     <dimen name="defaultFabImageSize">30dp</dimen>
     <dimen name="defaultMarginRightFabButton">20dp</dimen>
-    <dimen name="contactRecyclerMarginTop">20dp</dimen>
+    <dimen name="contactRecyclerMarginTop">10dp</dimen>
     <dimen name="contactNameDetailsHeight">50sp</dimen>
     <dimen name="commonHeightTextViewContactDetails">50sp</dimen>
     <dimen name="contactDetailPhoneMarginTop">50sp</dimen>
@@ -37,6 +37,11 @@
     <dimen name="resetPasswordHeading">100dp</dimen>
     <dimen name="resetPasswordSendButtonWidth">300sp</dimen>
     <dimen name="resetPasswordSendButtonMarginTop">40sp</dimen>
+    <dimen name="searchViewMarginTop">10dp</dimen>
+    <dimen name="accountNameMargin">10dp</dimen>
+    <dimen name="accountMarginLeft">20dp</dimen>
+    <dimen name="accountSettingMargin">20dp</dimen>
+    <dimen name="termsHeadingPaddingBottom">20dp</dimen>
 
 
 </resources>

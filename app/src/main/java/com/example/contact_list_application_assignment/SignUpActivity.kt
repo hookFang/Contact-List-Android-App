@@ -1,7 +1,5 @@
 package com.example.contact_list_application_assignment
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -20,7 +18,6 @@ import kotlinx.android.synthetic.main.toolbar_contact.*
 
 class SignUpActivity : AppCompatActivity() {
 
-    var TAG = SignUpActivity::class.qualifiedName
     //Code referred from https://firebase.google.com/docs/auth/android/password-auth#create_a_password-based_account
     var auth: FirebaseAuth = Firebase.auth
 
@@ -64,7 +61,7 @@ class SignUpActivity : AppCompatActivity() {
                             } catch (e: FirebaseAuthUserCollisionException) {
                                 Toast.makeText(this, "The email address is already in use by another account.", Toast.LENGTH_LONG).show()
                             } catch (e: Exception) {
-                                Log.e(TAG, e.message!!)
+                                Log.e("TAG", e.message!!)
                             }
                         }
                     }

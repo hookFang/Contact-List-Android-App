@@ -8,6 +8,13 @@
     android:orientation="vertical"
     tools:context=".AddContact">
 
+    <include
+        android:id="@+id/toolBarContact"
+        layout="@layout/toolbar_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTintMode="src_in" />
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

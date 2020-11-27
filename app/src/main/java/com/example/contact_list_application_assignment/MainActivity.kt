@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth
@@ -16,12 +17,30 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private val auth = Firebase.auth
-    private val TAG = MainActivity::class.qualifiedName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.activity_main)
+
+        if (FirebaseAuth.getInstance().currentUser != null) {
+            // Sign in success, update UI with the signed-in user's information
+            Log.i("TAG", "Sign In was Successful")
+            val user = auth.currentUser
+            if (user != null) {
+                if (!user.isEmailVerified) {
+                    Toast.makeText(
+                        this,
+                        "Please Verify you're email before you can Login",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    val i = Intent(applicationContext, MainPageActivity::class.java)
+                    startActivity(i)
+                }
+            }
+        }
+
 
         //Sign Up button onclick listener from login page
         signUpButtonFromLogin.setOnClickListener {
@@ -50,17 +69,16 @@ class MainActivity : AppCompatActivity() {
                     .addOnCompleteListener(this) { task: Task<AuthResult> ->
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "Sign In was Successful")
+                            Log.i("TAG", "Sign In was Successful")
                             val user = auth.currentUser
                             if (user != null) {
-                                if(!user.isEmailVerified) {
+                                if (!user.isEmailVerified) {
                                     Toast.makeText(
                                         this,
                                         "Please Verify you're email before you can Login",
                                         Toast.LENGTH_LONG
                                     ).show()
-                                }
-                                else {
+                                } else {
                                     val i = Intent(applicationContext, MainPageActivity::class.java)
                                     startActivity(i)
                                 }
@@ -69,11 +87,12 @@ class MainActivity : AppCompatActivity() {
                             try {
                                 throw task.exception!!
                             } catch (e: FirebaseAuthInvalidUserException) {
-                                Toast.makeText(this, "The user with this email does not exist, Please sign Up for a Account", Toast.LENGTH_LONG).show()
+                                Toast.makeText(this, "The user with this email does not exist, Please sign Up for a Account", Toast.LENGTH_LONG)
+                                    .show()
                             } catch (e: FirebaseAuthInvalidCredentialsException) {
                                 Toast.makeText(this, "Wrong Password Please Try Again", Toast.LENGTH_LONG).show()
                             } catch (e: Exception) {
-                                Log.e(TAG, e.message!!)
+                                Log.e("TAG", e.message!!)
                             }
                         }
                     }

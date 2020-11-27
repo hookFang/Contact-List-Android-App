@@ -3,46 +3,54 @@ package com.example.contact_list_application_assignment
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.AssetFileDescriptor
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.android.material.internal.ContextUtils.getActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main_page.*
 import kotlinx.android.synthetic.main.contact_item.view.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.io.Serializable
+import java.util.*
 
 
 class MainPageActivity : ReadContactsHelper() {
 
     private val PERMISSIONS_REQUEST_READ_CONTACTS = 100
-    private val db = FirebaseAuth.getInstance().currentUser?.uid?.let { FirebaseFirestore.getInstance().collection("users").document(it).collection("contacts") }
+    private val db =
+        FirebaseAuth.getInstance().currentUser?.uid?.let { FirebaseFirestore.getInstance().collection("users").document(it).collection("contacts") }
     private var adapter: MainPageActivity.ContactAdapter? = null
-
+    private var searchContactVisibility = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)
 
+        searchContact.visibility = View.GONE
+
+        GlobalScope.launch(context = Dispatchers.Main) {
+            delay(2000)
+            progressBarMainPage.visibility = View.GONE
+        }
+
         GlobalScope.launch {
             // Code referred from - https://medium.com/@manuaravindpta/fetching-contacts-from-device-using-kotlin-6c6d3e76574f
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && (checkSelfPermission(
                     Manifest.permission.READ_CONTACTS
-                ) != PackageManager.PERMISSION_GRANTED  || checkSelfPermission(
+                ) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(
                     Manifest.permission.CALL_PHONE
                 ) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(
                     Manifest.permission.WRITE_CONTACTS
@@ -62,7 +70,7 @@ class MainPageActivity : ReadContactsHelper() {
 
         //Set RecyclerView to use linear layout
         contactRecyclerView.layoutManager = LinearLayoutManager(this)
-        val query = db?.whereNotEqualTo("phoneNumber", null)
+        var query = db?.whereNotEqualTo("contactName", null)?.orderBy("contactName")
 
         println("Query is $query")
 
@@ -77,10 +85,72 @@ class MainPageActivity : ReadContactsHelper() {
         adapter = options?.let { ContactAdapter(it) }
         contactRecyclerView.adapter = adapter
 
-        //onclick listener for the + icon to add contact
-        addContactFab.setOnClickListener {
-            val i = Intent(applicationContext, AddContact::class.java)
-            startActivity(i)
+        searchContact.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            //this is when you press submit
+            override fun onQueryTextSubmit(searchString: String): Boolean {
+                val newQuery = db?.whereNotEqualTo("contactName", null)?.orderBy("contactName")?.whereGreaterThanOrEqualTo(
+                    "contactName",
+                    searchString.toLowerCase(Locale.ROOT).capitalize()
+                )
+                val newOptions = newQuery?.let {
+                    FirestoreRecyclerOptions.Builder<Contact>().setQuery(
+                        it,
+                        Contact::class.java
+                    ).build()
+                }
+                if (newOptions != null) {
+                    adapter?.updateOptions(newOptions)
+                }
+                return true
+            }
+
+            //this actually runs each time a text change is found
+            override fun onQueryTextChange(searchString: String): Boolean {
+                val newQuery = db?.whereNotEqualTo("contactName", null)?.orderBy("contactName")?.whereGreaterThanOrEqualTo(
+                    "contactName",
+                    searchString.toLowerCase(Locale.ROOT).capitalize()
+                )
+                val newOptions = newQuery?.let {
+                    FirestoreRecyclerOptions.Builder<Contact>().setQuery(
+                        it,
+                        Contact::class.java
+                    ).build()
+                }
+                if (newOptions != null) {
+                    adapter?.updateOptions(newOptions)
+                }
+                return true
+            }
+        })
+
+        //Code refereed from https://code.tutsplus.com/tutorials/how-to-code-a-bottom-navigation-bar-for-an-android-app--cms-30305#:~:text=Bottom%20navigation%20bars%20make%20it,refreshes%20the%20currently%20active%20view.
+        //Bottom navigation view code to navigate to different pages
+        bottomNavigationView.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                //Option to add a new contact
+                R.id.addContact -> {
+                    val i = Intent(applicationContext, AddContact::class.java)
+                    startActivity(i)
+                    return@setOnNavigationItemSelectedListener true
+                }
+                //option to search for a contact
+                R.id.searchContact -> {
+                    if (!searchContactVisibility) {
+                        searchContact.visibility = View.VISIBLE
+                        searchContactVisibility = true
+                    } else {
+                        searchContact.visibility = View.GONE
+                        searchContactVisibility = false
+                    }
+                    return@setOnNavigationItemSelectedListener true
+                }
+                //Go to account settings
+                R.id.accountInfo -> {
+                    startActivity(Intent(this, AccountDetails::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+            }
+            false
         }
     }
 
@@ -135,7 +205,7 @@ class MainPageActivity : ReadContactsHelper() {
             holder.itemView.contactName.text = model.contactName
 
             //On click listener to make a call
-            holder.itemView.callFab.setOnClickListener{
+            holder.itemView.callFab.setOnClickListener {
                 val callIntent = Intent(Intent.ACTION_DIAL)
                 callIntent.data = Uri.parse("tel:" + model.phoneNumber)
                 startActivity(callIntent)
@@ -163,5 +233,12 @@ class MainPageActivity : ReadContactsHelper() {
                 startActivity(intent)
             }
         }
+    }
+
+    //Setup the toolbar
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        //inflate the main menu to add the call, message, edit and delete items to the toolbar
+        menuInflater.inflate(R.menu.main_page_menu, menu)
+        return true;
     }
 }

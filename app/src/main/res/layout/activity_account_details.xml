@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AccountDetails">
+
+    <TextView
+        android:id="@+id/accountEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/accountMarginLeft"
+        android:layout_marginTop="@dimen/accountNameMargin"
+        android:fontFamily="@font/aldrich"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/accountName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/accountMarginLeft"
+        android:layout_marginTop="@dimen/accountNameMargin"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/accountEmail" />
+
+    <TextView
+        android:id="@+id/accountSetting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/accountMarginLeft"
+        android:layout_marginTop="@dimen/accountSettingMargin"
+        android:fontFamily="@font/aldrich"
+        android:text="@string/accountSettingsHeading"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/accountName" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/termsCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/logoutCardView"
+        app:cardCornerRadius="5dp"
+        app:contentPaddingTop="20dp"
+        app:contentPaddingBottom="20dp" >
+
+        <TextView
+            android:id="@+id/termsandConditions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/accountMarginLeft"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/aldrich"
+            android:text="@string/accountTermsAndConditions"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/logoutCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationViewAccountPage"
+        app:cardCornerRadius="5dp"
+        app:contentPaddingTop="20dp"
+        app:contentPaddingBottom="20dp" >
+
+        <TextView
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/accountMarginLeft"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/aldrich"
+            android:text="@string/accountLogout"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationViewAccountPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/photoTint"
+        app:itemIconTint="#FFFFFF"
+        app:itemTextColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/account_page_menu" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

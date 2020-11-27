@@ -19,6 +19,7 @@ class AddContact : ContactsHelper() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_contact)
 
+        //Setup toolbar to set the back button
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Add New Contact"

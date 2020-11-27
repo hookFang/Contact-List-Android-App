@@ -4,18 +4,23 @@ import android.content.ContentUris
 import android.content.Context
 import android.net.Uri
 import android.provider.ContactsContract
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.tasks.await
+import java.lang.Exception
+import java.util.*
 
 
 open class ReadContactsHelper : AppCompatActivity() {
 
     //Connect to firebase
-    private val db = FirebaseAuth.getInstance().currentUser?.uid?.let { FirebaseFirestore.getInstance().collection("users").document(it).collection("contacts") }
-    val contactSet = mutableSetOf<Contact>()
+    private val db =
+        FirebaseAuth.getInstance().currentUser?.uid?.let { FirebaseFirestore.getInstance().collection("users").document(it).collection("contacts") }
 
     //Helper to get Email
     private fun getEmail(id: String, applicationContext: Context): String? {
@@ -129,14 +134,24 @@ open class ReadContactsHelper : AppCompatActivity() {
                 val address = getAddress(id, applicationContext)
                 val contactPhotoUri = getContactPhotoUri(id).toString()
 
+
                 if (phoneNumValue != null || workPhoneNumber != null) {
-                    contactSet.add(Contact(phoneNumValue, contactName, address, email, workPhoneNumber, contactPhotoUri, id))
+                    //Will make sure same contact is not added twice
+                    db?.whereEqualTo("phoneNumber", phoneNumValue)?.get()?.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            if (task.result?.documents?.size == 0) {
+                                val tempContact = Contact(phoneNumValue, contactName.toLowerCase(Locale.ROOT).capitalize(), address, email, workPhoneNumber, contactPhotoUri, id)
+                                tempContact.id = db?.document()?.id
+                                db?.document(tempContact.id!!)?.set(tempContact)
+                            } else {
+                                Log.i("TAG", "Document already exist ")
+                            }
+                        } else {
+                            Log.e("TAG", "get failed with ", task.exception)
+                        }
+                    }
                 }
             }
-        }
-        for (contact in contactSet) {
-            contact.id = db?.document()?.id
-            db?.document(contact.id!!)?.set(contact)
         }
     }
 }

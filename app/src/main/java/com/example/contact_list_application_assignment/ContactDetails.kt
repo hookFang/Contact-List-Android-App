@@ -36,6 +36,7 @@ class ContactDetails : ContactsHelper() {
 
         //Instantiate the tool bar
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = contactNamePassed
 
         //Sets value from the intent
@@ -97,5 +98,11 @@ class ContactDetails : ContactsHelper() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    //This is the action for back button
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 }

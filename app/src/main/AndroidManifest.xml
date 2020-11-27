@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ResetPassword"></activity>
+        <activity android:name=".TermsAndConditionsPage"></activity>
+        <activity android:name=".AccountDetails" />
+        <activity android:name=".ResetPassword" />
         <activity android:name=".ContactDetails" />
         <activity android:name=".AddContact" />
         <activity android:name=".MainPageActivity" />

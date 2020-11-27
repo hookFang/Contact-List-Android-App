@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.toolbar_contact.*
 import java.lang.Exception
 
 class ResetPassword : AppCompatActivity() {
-    private val TAG = ResetPassword::class.qualifiedName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +41,7 @@ class ResetPassword : AppCompatActivity() {
                             Toast.makeText(this, "An account with that E-mail doesn't exist ! Please sign up for a new account.", Toast.LENGTH_LONG)
                                 .show()
                         } catch (e: Exception) {
-                            Log.e(TAG, e.message!!)
+                            Log.e("TAG", e.message!!)
                         }
                     }
                 }
