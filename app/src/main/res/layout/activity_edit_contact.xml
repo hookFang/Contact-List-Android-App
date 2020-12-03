@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:background="#1587F8"
     android:orientation="vertical"
-    tools:context=".AddContact">
+    tools:context=".EditContact">
 
     <include
-        android:id="@+id/toolBarContact"
+        android:id="@+id/toolBarContactEditPage"
         layout="@layout/toolbar_contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,26 +30,26 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/contactNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/addContactTextViewMarginTop"
                 android:fontFamily="@font/aldrich"
-                android:text="@string/addContact"
+                android:text="@string/editContact"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/addContactPhoto"
+                android:id="@+id/editContactPhoto"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
                 app:srcCompat="@drawable/ic_baseline_person_24" />
 
             <EditText
-                android:id="@+id/addContactName"
+                android:id="@+id/editContactName"
                 android:layout_width="@dimen/nameWidth"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addContactNameMarginTop"
@@ -60,7 +60,7 @@
                 android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/addContactPhone"
+                android:id="@+id/editContactPhone"
                 android:layout_width="@dimen/nameWidth"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addContactSpaceBetweenTextView"
@@ -71,7 +71,7 @@
                 android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/addContactAddress"
+                android:id="@+id/editContactAddress"
                 android:layout_width="@dimen/nameWidth"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addContactSpaceBetweenTextView"
@@ -82,7 +82,7 @@
                 android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/addContactEmail"
+                android:id="@+id/editContactEmail"
                 android:layout_width="@dimen/nameWidth"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addContactSpaceBetweenTextView"
@@ -93,7 +93,7 @@
                 android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/addContactWorkPhone"
+                android:id="@+id/editContactWorkPhone"
                 android:layout_width="@dimen/nameWidth"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/addContactSpaceBetweenTextView"
@@ -104,7 +104,7 @@
                 android:textAlignment="center" />
 
             <Button
-                android:id="@+id/addContactSave"
+                android:id="@+id/editContactSave"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"

@@ -6,18 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".TermsAndConditionsPage">
 
-    <TextView
-        android:id="@+id/termsHeading"
+    <include
+        android:id="@+id/toolBarContact"
+        layout="@layout/toolbar_contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/aldrich"
-        android:text="@string/hashmaps_terms_amp_conditions"
-        android:paddingBottom="@dimen/termsHeadingPaddingBottom"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:backgroundTintMode="src_in" />
+
 
     <TextView
         android:id="@+id/termsAndConditonsTextView"
@@ -28,7 +23,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationViewTermsPage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/termsHeading" />
+        app:layout_constraintTop_toBottomOf="@id/toolBarContact" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationViewTermsPage"

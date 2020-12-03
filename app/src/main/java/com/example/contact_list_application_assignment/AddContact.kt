@@ -42,12 +42,18 @@ class AddContact : ContactsHelper() {
 
             //Adds contact to the Firestore DB
             if (contactName.isNotEmpty() || contactPhone.isNotEmpty()) {
-                    if (!addContact(contactName, contactPhone, contactAddress, contactWorkPhone, contactEmail, bitmapImage)) {
-                        Toast.makeText(this, "Contact was not saved", Toast.LENGTH_LONG).show()
-                    } else {
+                when (addContact(contactName, contactPhone, contactAddress, contactWorkPhone, contactEmail, bitmapImage)) {
+                    0 -> {
                         Toast.makeText(this, "Contact was saved", Toast.LENGTH_LONG).show()
                         finish()
                     }
+                    1 -> {
+                        Toast.makeText(this, "Please choose a different photo, size too big !", Toast.LENGTH_LONG).show()
+                    }
+                    2 -> {
+                        Toast.makeText(this, "Contact was not saved", Toast.LENGTH_SHORT).show()
+                    }
+                }
             } else {
                 Toast.makeText(this, "Please make sure the Name and Phone number and filled in", Toast.LENGTH_LONG).show()
             }
@@ -62,6 +68,7 @@ class AddContact : ContactsHelper() {
             val selectedImage: Uri? = data.data
             bitmapImage = selectedImage?.let { ImageDecoder.createSource(this.contentResolver, it) }?.let { ImageDecoder.decodeBitmap(it) }
             print(bitmapImage)
+            addContactPhoto.setImageBitmap(bitmapImage)
         }
     }
 

@@ -42,6 +42,9 @@
     <dimen name="accountMarginLeft">20dp</dimen>
     <dimen name="accountSettingMargin">20dp</dimen>
     <dimen name="termsHeadingPaddingBottom">20dp</dimen>
+    <dimen name="cornerRadiusCardView">5dp</dimen>
+    <dimen name="cardViewPadding">20dp</dimen>
+    <dimen name="cardViewMarginBottom">10dp</dimen>
 
 
 </resources>

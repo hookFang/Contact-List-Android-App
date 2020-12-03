@@ -23,7 +23,7 @@ open class ReadContactsHelper : AppCompatActivity() {
         FirebaseAuth.getInstance().currentUser?.uid?.let { FirebaseFirestore.getInstance().collection("users").document(it).collection("contacts") }
 
     //Helper to get Email
-    private fun getEmail(id: String, applicationContext: Context): String? {
+    fun getEmail(id: String, applicationContext: Context): String? {
         //Code referred from https://stackoverflow.com/questions/15243205/cant-get-the-email-address-from-contactscontract
         //We gets the emails - we do a selection based on the ID
         var contactEmail: String? = null
@@ -45,7 +45,7 @@ open class ReadContactsHelper : AppCompatActivity() {
     }
 
     //Helper to get Phone Number
-    private fun getPhoneNumber(
+    fun getPhoneNumber(
         id: String,
         applicationContext: Context,
         phoneNumber: Int
@@ -102,12 +102,12 @@ open class ReadContactsHelper : AppCompatActivity() {
         return contactAddress
     }
 
-    private fun getContactPhotoUri(id: String): Uri {
+    fun getContactPhotoUri(id: String): Uri {
         val contactUri: Uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, id.toLong())
         return Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.DISPLAY_PHOTO)
     }
 
-    fun readContactsAndUploadData() {
+    fun readContactsAndUploadData(contactAddress: String?) {
         // the Content resolver here reads the contacts from your phone.
         val cursor = contentResolver.query(
             ContactsContract.Contacts.CONTENT_URI,
@@ -131,7 +131,7 @@ open class ReadContactsHelper : AppCompatActivity() {
                 //We use functions in our helper class which is inherited to get the phoneNumber , email, address
                 val email = getEmail(id, applicationContext)
                 val (phoneNumValue, workPhoneNumber) = getPhoneNumber(id, applicationContext, phoneNumber)
-                val address = getAddress(id, applicationContext)
+                val address = getAddress(id, applicationContext)?: contactAddress
                 val contactPhotoUri = getContactPhotoUri(id).toString()
 
 

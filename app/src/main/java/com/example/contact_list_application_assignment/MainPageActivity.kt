@@ -54,23 +54,30 @@ class MainPageActivity : ReadContactsHelper() {
                     Manifest.permission.CALL_PHONE
                 ) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(
                     Manifest.permission.WRITE_CONTACTS
-                ) != PackageManager.PERMISSION_GRANTED)
+                ) != PackageManager.PERMISSION_GRANTED) || checkSelfPermission(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
             ) {
                 //So if we don't have permission we request for permissions from the user, this will execute the overridden onRequestPermissionsResult
                 requestPermissions(
-                    arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE, Manifest.permission.WRITE_CONTACTS),
+                    arrayOf(
+                        Manifest.permission.READ_CONTACTS,
+                        Manifest.permission.CALL_PHONE,
+                        Manifest.permission.WRITE_CONTACTS,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ),
                     PERMISSIONS_REQUEST_READ_CONTACTS
                 )
                 //callback onRequestPermissionsResult
             } else {
                 //If we have permission we run our function directly
-                readContactsAndUploadData()
+                readContactsAndUploadData(null)
             }
         }
 
         //Set RecyclerView to use linear layout
         contactRecyclerView.layoutManager = LinearLayoutManager(this)
-        var query = db?.whereNotEqualTo("contactName", null)?.orderBy("contactName")
+        val query = db?.whereNotEqualTo("contactName", null)?.orderBy("contactName")
 
         println("Query is $query")
 
@@ -150,8 +157,9 @@ class MainPageActivity : ReadContactsHelper() {
                     return@setOnNavigationItemSelectedListener true
                 }
             }
-            false
+            true
         }
+
     }
 
     override fun onRequestPermissionsResult(
@@ -160,7 +168,7 @@ class MainPageActivity : ReadContactsHelper() {
     ) {
         if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                readContactsAndUploadData()
+                readContactsAndUploadData(null)
             } else {
                 Toast.makeText(
                     this,
@@ -222,13 +230,6 @@ class MainPageActivity : ReadContactsHelper() {
             holder.itemView.setOnClickListener {
                 //We pass in all the contact values to the contact Details activity
                 val intent = Intent(applicationContext, ContactDetails::class.java)
-                intent.putExtra("contactName", model.contactName)
-                intent.putExtra("contactPhotoURI", model.contactPhotoURI)
-                intent.putExtra("contactWorkPhone", model.contactWorkPhone)
-                intent.putExtra("contactAddress", model.contactAddress)
-                intent.putExtra("contactPhone", model.phoneNumber)
-                intent.putExtra("contactEmail", model.contactEmail)
-                intent.putExtra("rawContactID", model.rawContactID)
                 intent.putExtra("contactFirebaseID", model.id)
                 startActivity(intent)
             }
@@ -241,4 +242,19 @@ class MainPageActivity : ReadContactsHelper() {
         menuInflater.inflate(R.menu.main_page_menu, menu)
         return true;
     }
+
+    //This is called here to clean up this activity when the screen is rotated
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+
 }

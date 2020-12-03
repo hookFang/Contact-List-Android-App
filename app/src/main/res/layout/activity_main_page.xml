@@ -40,7 +40,8 @@
         android:backgroundTint="@color/photoTint"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appNameTextView" />
+        app:layout_constraintTop_toBottomOf="@id/appNameTextView"
+        android:actionViewClass="android.support.v7.widget.SearchView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/contactRecyclerView"
@@ -49,7 +50,7 @@
         android:layout_marginTop="@dimen/contactRecyclerMarginTop"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchContact" />
+        app:layout_constraintTop_toBottomOf="@id/searchContact"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

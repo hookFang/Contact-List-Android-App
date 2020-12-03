@@ -6,11 +6,17 @@ import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import kotlinx.android.synthetic.main.activity_account_details.*
 import kotlinx.android.synthetic.main.activity_terms_and_conditons_page.*
+import kotlinx.android.synthetic.main.toolbar_contact.*
 
 class TermsAndConditionsPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_terms_and_conditons_page)
+
+        //Instantiate the tool bar
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "HashMaps Terms & Conditions"
 
         termsAndConditonsTextView.movementMethod = ScrollingMovementMethod()
 
@@ -38,5 +44,11 @@ class TermsAndConditionsPage : AppCompatActivity() {
             }
             false
         }
+    }
+
+    //This is the action for back button
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 }

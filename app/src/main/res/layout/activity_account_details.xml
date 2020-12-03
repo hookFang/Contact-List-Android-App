@@ -4,7 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".AccountDetails">
+
+    <ProgressBar
+        android:id="@+id/progressBarForExcelExport"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/accountEmail"
@@ -38,23 +49,48 @@
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/accountName" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/exportContactExcelCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/cornerRadiusCardView"
+        app:contentPaddingBottom="@dimen/cardViewPadding"
+        app:contentPaddingTop="@dimen/cardViewPadding"
+        android:layout_marginBottom="@dimen/cardViewMarginBottom"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/termsCardView"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/exportContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/accountMarginLeft"
+            android:fontFamily="@font/aldrich"
+            android:text="@string/exportContacts"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/termsCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/cornerRadiusCardView"
+        app:contentPaddingTop="@dimen/cardViewPadding"
+        app:contentPaddingBottom="@dimen/cardViewPadding"
+        android:layout_marginBottom="@dimen/cardViewMarginBottom"
+        android:clickable="true"
         app:layout_constraintBottom_toTopOf="@id/logoutCardView"
-        app:cardCornerRadius="5dp"
-        app:contentPaddingTop="20dp"
-        app:contentPaddingBottom="20dp" >
+        android:focusable="true">
 
         <TextView
             android:id="@+id/termsandConditions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/accountMarginLeft"
-            android:clickable="true"
-            android:focusable="true"
             android:fontFamily="@font/aldrich"
             android:text="@string/accountTermsAndConditions"
             android:textSize="18sp"
@@ -67,18 +103,19 @@
         android:id="@+id/logoutCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/cornerRadiusCardView"
+        app:contentPaddingTop="@dimen/cardViewPadding"
+        app:contentPaddingBottom="@dimen/cardViewPadding"
+        android:layout_marginBottom="@dimen/cardViewMarginBottom"
+        android:clickable="true"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationViewAccountPage"
-        app:cardCornerRadius="5dp"
-        app:contentPaddingTop="20dp"
-        app:contentPaddingBottom="20dp" >
+        android:focusable="true">
 
         <TextView
             android:id="@+id/logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/accountMarginLeft"
-            android:clickable="true"
-            android:focusable="true"
             android:fontFamily="@font/aldrich"
             android:text="@string/accountLogout"
             android:textSize="18sp"
