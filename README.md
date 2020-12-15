@@ -9,6 +9,8 @@ They will also have a phone and text option, these options will open there defau
 
 The users can also add photos to there contacts.
 
+An option to export the contacts to a .csv file.
+
 All the data will be saved to the users firebase(Database used) account. A sign page will be available for users to sign up for a free account.
 
 ### Coroutine 
@@ -16,6 +18,4 @@ We are using Coroutine instead of multi-threading to save data into Firestore on
 Learn more about Coroutine at https://developer.android.com/kotlin/coroutines
 
 ### Upcoming Feratures that might be added
-An option to export the contacts to a .csv file.
-
 Add favourite option, to add a favourite contact.
