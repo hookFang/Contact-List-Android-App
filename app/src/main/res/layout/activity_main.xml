@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:fontFamily="@font/aldrich"
-        android:hint="@string/userNameHint"
+        android:hint="@string/emailHint"
         android:inputType="text"
         android:textAlignment="center" />
 

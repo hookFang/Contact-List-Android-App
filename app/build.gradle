@@ -7,12 +7,21 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
+    signingConfigs {
+        release {
+            storeFile file("C:\\Users\\edwin\\keyStoresAndroid\\hashmapsContact.jks")
+            storePassword "Kill1234\$"
+            keyAlias "key0"
+            keyPassword "Kill1234\$"
+        }
+    }
+
     defaultConfig {
-        applicationId "com.example.contact_list_application_assignment"
+        applicationId "com.hashmaps.contact_list_application_assignment"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -21,6 +30,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }

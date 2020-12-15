@@ -37,5 +37,6 @@
     <string name="hashmaps_terms_amp_conditions"><![CDATA[HashMaps Terms & Conditions]]></string>
     <string name="editContact">Edit Contact</string>
     <string name="exportContacts">Export Contacts to Excel</string>
+    <string name="emailNameHint">E-mail</string>
 
 </resources>

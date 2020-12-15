@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.contact_list_application_assignment">
+    package="com.hashmaps.contact_list_application_assignment">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
@@ -16,16 +16,16 @@
         android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditContact" />
-        <activity android:name=".TermsAndConditionsPage" />
-        <activity android:name=".AccountDetails" />
-        <activity android:name=".ResetPassword" />
-        <activity android:name=".ContactDetails" />
-        <activity android:name=".AddContact" />
-        <activity android:name=".MainPageActivity"
+        <activity android:name="com.hashmaps.contact_list_application_assignment.EditContact" />
+        <activity android:name="com.hashmaps.contact_list_application_assignment.TermsAndConditionsPage" />
+        <activity android:name="com.hashmaps.contact_list_application_assignment.AccountDetails" />
+        <activity android:name="com.hashmaps.contact_list_application_assignment.ResetPassword" />
+        <activity android:name="com.hashmaps.contact_list_application_assignment.ContactDetails" />
+        <activity android:name="com.hashmaps.contact_list_application_assignment.AddContact" />
+        <activity android:name="com.hashmaps.contact_list_application_assignment.MainPageActivity"
             android:configChanges="orientation|screenSize" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.hashmaps.contact_list_application_assignment.SignUpActivity" />
+        <activity android:name="com.hashmaps.contact_list_application_assignment.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
